@@ -101,6 +101,9 @@ IntelAIWealth/
 - Transaction categorization engine implemented
 - Rule-based merchant categorization added
 - Expense/income inference pipeline created
+- Automatic transaction type inference implemented
+- Keyword-based income detection added
+- Automatic expense sign normalization implemented
 
 ## In Progress
 - Advanced merchant intelligence

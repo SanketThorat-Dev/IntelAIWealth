@@ -10,6 +10,16 @@ class TransactionNormalizer:
         "transaction_type": ["type", "transaction_type", "category"]
     }
 
+    INCOME_KEYWORDS = [
+        "salary",
+        "bonus",
+        "credited",
+        "refund",
+        "interest",
+        "cashback",
+        "reimbursement"
+    ]
+
     @staticmethod
     def standardize_columns(df: pd.DataFrame) -> pd.DataFrame:
 
@@ -45,15 +55,7 @@ class TransactionNormalizer:
 
         return df
     
-        if "transaction_type" in df.columns:
-
-            df["amount"] = df.apply(
-                lambda row: -abs(row["amount"])
-                if str(row["transaction_type"]).lower() == "expense"
-                else abs(row["amount"]),
-                axis=1
-            )
-
+       
     @staticmethod
     def parse_dates(df: pd.DataFrame) -> pd.DataFrame:
 
@@ -75,10 +77,23 @@ class TransactionNormalizer:
     @staticmethod
     def infer_transaction_type(df: pd.DataFrame) -> pd.DataFrame:
 
-        if "amount" in df.columns:
+        def detect_transaction_type(row):
 
-            df["transaction_type"] = df["amount"].apply(
-                lambda x: "Income" if x > 0 else "Expense"
-            )
+            description = str(row["description"]).lower()
+            amount = abs(float(row["amount"]))
+
+            # Detect income keywords
+            for keyword in TransactionNormalizer.INCOME_KEYWORDS:
+
+                if keyword in description:
+                    return amount, "Income"
+
+            # Default to expense
+            return -amount, "Expense"
+
+        results = df.apply(detect_transaction_type, axis=1)
+
+        df["amount"] = [r[0] for r in results]
+        df["transaction_type"] = [r[1] for r in results]
 
         return df
