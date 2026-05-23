@@ -2,6 +2,7 @@ from fastapi import APIRouter, UploadFile, File
 import pandas as pd
 
 from Backend.app.services.normalizer import TransactionNormalizer
+from Backend.app.services.categorizer import TransactionCategorizer
 
 router = APIRouter()
 
@@ -19,6 +20,9 @@ async def upload_csv(file: UploadFile = File(...)):
 
     # Normalize transactions
     normalized_df = TransactionNormalizer.normalize(df)
+
+    # Apply intelligent categorization
+    normalized_df = TransactionCategorizer.apply_categories(normalized_df)
 
     return {
         "filename": file.filename,

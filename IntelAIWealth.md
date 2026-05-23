@@ -98,12 +98,15 @@ IntelAIWealth/
 - Column standardization implemented
 - Currency cleaning pipeline added
 - Datetime parsing implemented
+- Transaction categorization engine implemented
+- Rule-based merchant categorization added
+- Expense/income inference pipeline created
 
 ## In Progress
-- Intelligent transaction categorization
+- Advanced merchant intelligence
+- ML-based anomaly detection
 
 ## Pending
-- Categorization engine
 - Analytics dashboard
 
 ---

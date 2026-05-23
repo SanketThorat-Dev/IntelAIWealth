@@ -44,6 +44,15 @@ class TransactionNormalizer:
             )
 
         return df
+    
+        if "transaction_type" in df.columns:
+
+            df["amount"] = df.apply(
+                lambda row: -abs(row["amount"])
+                if str(row["transaction_type"]).lower() == "expense"
+                else abs(row["amount"]),
+                axis=1
+            )
 
     @staticmethod
     def parse_dates(df: pd.DataFrame) -> pd.DataFrame:
@@ -59,5 +68,17 @@ class TransactionNormalizer:
         df = TransactionNormalizer.standardize_columns(df)
         df = TransactionNormalizer.clean_amounts(df)
         df = TransactionNormalizer.parse_dates(df)
+        df = TransactionNormalizer.infer_transaction_type(df)
+
+        return df
+            
+    @staticmethod
+    def infer_transaction_type(df: pd.DataFrame) -> pd.DataFrame:
+
+        if "amount" in df.columns:
+
+            df["transaction_type"] = df["amount"].apply(
+                lambda x: "Income" if x > 0 else "Expense"
+            )
 
         return df
