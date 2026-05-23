@@ -88,14 +88,21 @@ IntelAIWealth/
 - Architecture planning complete
 - Tech stack selected
 - Development roadmap created
+- FastAPI backend initialized
+- Health check API created
+- Swagger documentation enabled
+- CSV upload endpoint created
+- Pandas transaction ingestion pipeline initialized
+- Swagger-based upload testing enabled
+- Transaction normalization engine created
+- Column standardization implemented
+- Currency cleaning pipeline added
+- Datetime parsing implemented
 
 ## In Progress
-- Environment setup
-- Backend initialization
+- Intelligent transaction categorization
 
 ## Pending
-- CSV upload API
-- Transaction normalization
 - Categorization engine
 - Analytics dashboard
 
