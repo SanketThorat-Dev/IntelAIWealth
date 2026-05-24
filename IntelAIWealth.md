@@ -104,10 +104,15 @@ IntelAIWealth/
 - Automatic transaction type inference implemented
 - Keyword-based income detection added
 - Automatic expense sign normalization implemented
+- Financial analytics engine implemented
+- Spending aggregation pipeline added
+- Savings calculation implemented
+- Category-wise analytics generated
 
 ## In Progress
-- Advanced merchant intelligence
-- ML-based anomaly detection
+- Advanced insights generation
+- Monthly trend analytics
+- AI-generated financial coaching
 
 ## Pending
 - Analytics dashboard
