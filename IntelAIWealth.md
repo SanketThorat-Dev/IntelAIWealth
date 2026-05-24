@@ -113,11 +113,15 @@ IntelAIWealth/
 - Spending growth detection added
 - Recurring transaction detection implemented
 - Time-series financial aggregation created
+- Isolation Forest anomaly detection implemented
+- Suspicious transaction detection added
+- Fraud-style analytics pipeline created
+- ML inference layer integrated
 
 ## In Progress
-- ML anomaly detection
 - Forecasting engine
-- Predictive finance analytics
+- Streamlit analytics dashboard
+- LLM financial coach
 
 ## Pending
 - Analytics dashboard

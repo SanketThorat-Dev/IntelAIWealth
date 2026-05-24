@@ -6,6 +6,7 @@ from Backend.app.services.categorizer import TransactionCategorizer
 from Backend.app.services.analytics import FinancialAnalytics
 from Backend.app.services.insights import FinancialInsights
 from Backend.app.services.trends import FinancialTrends  
+from Backend.app.ml.anomaly_detector import FinancialAnomalyDetector
 
 router = APIRouter()
 
@@ -36,6 +37,10 @@ async def upload_csv(file: UploadFile = File(...)):
     #Provides Trend Analytics
     monthly_data = FinancialTrends.monthly_summary(normalized_df)
 
+    #Generates Anomalies
+    anomalies = FinancialAnomalyDetector.detect_anomalies(
+    normalized_df)
+
     spending_trend = FinancialTrends.detect_spending_trend(
         monthly_data["monthly_expenses"]
     )
@@ -53,5 +58,6 @@ async def upload_csv(file: UploadFile = File(...)):
     "monthly_trends": monthly_data,
     "spending_trend": spending_trend,
     "recurring_transactions": recurring_transactions,
+    "anomalies": anomalies,
     "preview": normalized_df.head().to_dict(orient="records")
     }
