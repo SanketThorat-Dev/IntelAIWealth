@@ -4,7 +4,8 @@ import pandas as pd
 from Backend.app.services.normalizer import TransactionNormalizer
 from Backend.app.services.categorizer import TransactionCategorizer
 from Backend.app.services.analytics import FinancialAnalytics
-from Backend.app.services.insights import FinancialInsights  
+from Backend.app.services.insights import FinancialInsights
+from Backend.app.services.trends import FinancialTrends  
 
 router = APIRouter()
 
@@ -32,11 +33,25 @@ async def upload_csv(file: UploadFile = File(...)):
     #Provides Financial Insights
     insights = FinancialInsights.generate_insights(analytics)
 
+    #Provides Trend Analytics
+    monthly_data = FinancialTrends.monthly_summary(normalized_df)
+
+    spending_trend = FinancialTrends.detect_spending_trend(
+        monthly_data["monthly_expenses"]
+    )
+
+    recurring_transactions = FinancialTrends.detect_recurring_transactions(
+        normalized_df
+    )
+
     return {
     "filename": file.filename,
     "columns": list(normalized_df.columns),
     "rows": len(normalized_df),
     "analytics": analytics,
     "insights": insights,
+    "monthly_trends": monthly_data,
+    "spending_trend": spending_trend,
+    "recurring_transactions": recurring_transactions,
     "preview": normalized_df.head().to_dict(orient="records")
     }
