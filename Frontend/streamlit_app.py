@@ -2,6 +2,10 @@ import streamlit as st
 import pandas as pd
 import requests
 import plotly.express as px
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 st.set_page_config(
     page_title="IntelAIWealth",
@@ -25,7 +29,7 @@ if uploaded_file:
     }
 
     response = requests.post(
-        "http://127.0.0.1:8000/upload-csv",
+        f"{os.getenv('BACKEND_URL')}/upload-csv",
         files={
             "file": uploaded_file
         }
@@ -119,3 +123,23 @@ if uploaded_file:
 
     else:
         st.success("No anomalies detected.")
+
+    #Expense Forecast
+    st.divider()
+
+    st.subheader("30-Day Expense Forecast")
+
+    forecast_df = pd.DataFrame(data["forecast"])
+
+    forecast_fig = px.line(
+        forecast_df,
+        x="ds",
+        y="yhat",
+        labels={'ds': 'Date', 'yhat': 'Predicted Value'},
+        title="Predicted Future Expenses"
+    )
+
+    st.plotly_chart(
+        forecast_fig,
+        use_container_width=True
+    )

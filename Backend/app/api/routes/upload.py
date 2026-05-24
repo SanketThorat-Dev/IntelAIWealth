@@ -7,6 +7,7 @@ from Backend.app.services.analytics import FinancialAnalytics
 from Backend.app.services.insights import FinancialInsights
 from Backend.app.services.trends import FinancialTrends  
 from Backend.app.ml.anomaly_detector import FinancialAnomalyDetector
+from Backend.app.ml.forecasting import FinancialForecaster
 
 router = APIRouter()
 
@@ -49,6 +50,10 @@ async def upload_csv(file: UploadFile = File(...)):
         normalized_df
     )
 
+    #Generates Forecast
+    forecast = FinancialForecaster.forecast_expenses(
+    normalized_df)
+
     return {
     "filename": file.filename,
     "columns": list(normalized_df.columns),
@@ -59,5 +64,6 @@ async def upload_csv(file: UploadFile = File(...)):
     "spending_trend": spending_trend,
     "recurring_transactions": recurring_transactions,
     "anomalies": anomalies,
+    "forecast": forecast,
     "preview": normalized_df.head().to_dict(orient="records")
     }

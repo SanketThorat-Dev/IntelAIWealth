@@ -121,11 +121,15 @@ IntelAIWealth/
 - Financial visualization layer added
 - Interactive anomaly dashboard created
 - Full-stack AI-fintech architecture established
+- Prophet forecasting engine implemented
+- 30-day expense prediction added
+- Time-series forecasting visualization created
+- Environment-based backend configuration implemented
 
 ## In Progress
-- Forecasting engine
 - LLM financial coach
-- Autonomous finance agents
+- Conversational AI finance assistant
+- Autonomous finance workflows
 
 ## Pending
 - Analytics dashboard
