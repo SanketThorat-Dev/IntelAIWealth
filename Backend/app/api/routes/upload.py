@@ -4,6 +4,7 @@ import pandas as pd
 from Backend.app.services.normalizer import TransactionNormalizer
 from Backend.app.services.categorizer import TransactionCategorizer
 from Backend.app.services.analytics import FinancialAnalytics
+from Backend.app.services.insights import FinancialInsights  
 
 router = APIRouter()
 
@@ -28,10 +29,14 @@ async def upload_csv(file: UploadFile = File(...)):
     #Provides Analytics of the transactions
     analytics = FinancialAnalytics.calculate_summary(normalized_df)
 
+    #Provides Financial Insights
+    insights = FinancialInsights.generate_insights(analytics)
+
     return {
     "filename": file.filename,
     "columns": list(normalized_df.columns),
     "rows": len(normalized_df),
     "analytics": analytics,
+    "insights": insights,
     "preview": normalized_df.head().to_dict(orient="records")
     }

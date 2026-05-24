@@ -108,11 +108,12 @@ IntelAIWealth/
 - Spending aggregation pipeline added
 - Savings calculation implemented
 - Category-wise analytics generated
+- Spending intelligence summaries generated
 
 ## In Progress
-- Advanced insights generation
 - Monthly trend analytics
-- AI-generated financial coaching
+- Time-series financial analysis
+- Forecasting preparation
 
 ## Pending
 - Analytics dashboard
