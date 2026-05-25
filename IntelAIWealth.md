@@ -125,11 +125,14 @@ IntelAIWealth/
 - 30-day expense prediction added
 - Time-series forecasting visualization created
 - Environment-based backend configuration implemented
+- Local LLM integration implemented using Ollama
+- Offline AI financial coaching added
+- Privacy-first AI inference architecture established
 
 ## In Progress
-- LLM financial coach
-- Conversational AI finance assistant
-- Autonomous finance workflows
+- Autonomous finance agents
+- LangGraph orchestration
+- Multi-step AI workflows
 
 ## Pending
 - Analytics dashboard

@@ -143,3 +143,10 @@ if uploaded_file:
         forecast_fig,
         use_container_width=True
     )
+
+    #AI Coach
+    st.divider()
+
+    st.subheader("AI Financial Coach")
+
+    st.info(data["ai_coaching"])

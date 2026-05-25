@@ -8,6 +8,7 @@ from Backend.app.services.insights import FinancialInsights
 from Backend.app.services.trends import FinancialTrends  
 from Backend.app.ml.anomaly_detector import FinancialAnomalyDetector
 from Backend.app.ml.forecasting import FinancialForecaster
+from Backend.app.services.llm_coach import FinancialCoach
 
 router = APIRouter()
 
@@ -54,6 +55,14 @@ async def upload_csv(file: UploadFile = File(...)):
     forecast = FinancialForecaster.forecast_expenses(
     normalized_df)
 
+    #Generate AI Coaching
+    ai_coaching = FinancialCoach.generate_financial_advice(
+    analytics=analytics,
+    insights=insights,
+    spending_trend=spending_trend,
+    anomalies=anomalies
+    )
+
     return {
     "filename": file.filename,
     "columns": list(normalized_df.columns),
@@ -65,5 +74,6 @@ async def upload_csv(file: UploadFile = File(...)):
     "recurring_transactions": recurring_transactions,
     "anomalies": anomalies,
     "forecast": forecast,
+    "ai_coaching": ai_coaching,
     "preview": normalized_df.head().to_dict(orient="records")
     }
