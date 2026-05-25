@@ -150,3 +150,12 @@ if uploaded_file:
     st.subheader("AI Financial Coach")
 
     st.info(data["ai_coaching"])
+
+    #Budget Agent
+    st.divider()
+
+    st.subheader("Autonomous Budget Planning Agent")
+
+    st.success(
+        data["agent_recommendation"]
+    )

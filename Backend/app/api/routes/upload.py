@@ -9,6 +9,7 @@ from Backend.app.services.trends import FinancialTrends
 from Backend.app.ml.anomaly_detector import FinancialAnomalyDetector
 from Backend.app.ml.forecasting import FinancialForecaster
 from Backend.app.services.llm_coach import FinancialCoach
+from Backend.app.agents.budget_agent import budget_agent
 
 router = APIRouter()
 
@@ -63,6 +64,15 @@ async def upload_csv(file: UploadFile = File(...)):
     anomalies=anomalies
     )
 
+    #Budget Agent Workflow
+    agent_response = budget_agent.invoke({
+
+    "analytics": analytics,
+    "insights": insights,
+    "anomalies": anomalies,
+    "spending_trend": spending_trend
+    })
+
     return {
     "filename": file.filename,
     "columns": list(normalized_df.columns),
@@ -75,5 +85,6 @@ async def upload_csv(file: UploadFile = File(...)):
     "anomalies": anomalies,
     "forecast": forecast,
     "ai_coaching": ai_coaching,
+    "agent_recommendation": agent_response["recommendation"],
     "preview": normalized_df.head().to_dict(orient="records")
     }
