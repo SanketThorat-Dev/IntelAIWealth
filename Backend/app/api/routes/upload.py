@@ -10,6 +10,11 @@ from Backend.app.ml.anomaly_detector import FinancialAnomalyDetector
 from Backend.app.ml.forecasting import FinancialForecaster
 from Backend.app.services.llm_coach import FinancialCoach
 from Backend.app.agents.budget_agent import budget_agent
+from Backend.app.agents.fraud_agent import FraudAgent
+from Backend.app.agents.savings_agent import SavingsAgent
+from Backend.app.agents.forecast_agent import ForecastAgent
+from Backend.app.agents.risk_agent import RiskAgent
+from Backend.app.agents.investment_agent import InvestmentAgent
 
 router = APIRouter()
 
@@ -73,6 +78,32 @@ async def upload_csv(file: UploadFile = File(...)):
     "spending_trend": spending_trend
     })
 
+    #Fraud Agent Workflow
+    fraud_analysis = FraudAgent.analyze(anomalies)
+
+    #Savings Agent Workflow
+    savings_analysis = SavingsAgent.analyze(
+        analytics
+    )
+
+    #Forecast Agent Workflow
+    forecast_analysis = ForecastAgent.analyze(
+        forecast
+    )
+
+    #Risk Agent Workflow
+    risk_analysis = RiskAgent.analyze(
+        analytics,
+        anomalies,
+        spending_trend
+    )
+
+    #Investment agent workflow
+    investment_analysis = InvestmentAgent.analyze(
+    analytics,
+    spending_trend
+    )
+
     return {
     "filename": file.filename,
     "columns": list(normalized_df.columns),
@@ -86,5 +117,10 @@ async def upload_csv(file: UploadFile = File(...)):
     "forecast": forecast,
     "ai_coaching": ai_coaching,
     "agent_recommendation": agent_response["recommendation"],
+    "fraud_analysis": fraud_analysis,
+    "savings_analysis": savings_analysis,
+    "forecast_analysis": forecast_analysis,
+    "risk_analysis": risk_analysis,
+    "investment_analysis": investment_analysis,
     "preview": normalized_df.head().to_dict(orient="records")
     }

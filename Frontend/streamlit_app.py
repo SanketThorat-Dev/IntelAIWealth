@@ -159,3 +159,28 @@ if uploaded_file:
     st.success(
         data["agent_recommendation"]
     )
+
+    #Fraud Agent
+    st.divider()
+    st.subheader("Fraud Analysis Agent")
+    st.warning(data["fraud_analysis"])
+
+    #Savings Agent
+    st.divider()
+    st.subheader("Savings Optimization Agent")
+    st.success(data["savings_analysis"])
+
+    #Forecast Agent
+    st.divider()
+    st.subheader("Forecast Intelligence Agent")
+    st.info(data["forecast_analysis"])
+
+    #Risk Agent
+    st.divider()
+    st.subheader("Risk Analysis Agent")
+    st.error(data["risk_analysis"])
+
+    #Investment Agent
+    st.divider()
+    st.subheader("Investment Advisory Agent")
+    st.info(data["investment_analysis"])
